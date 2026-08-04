@@ -16,7 +16,6 @@ from dataclasses import dataclass
 from typing import Optional
 import statistics
 
-
 @dataclass
 class BenchmarkResult:
     operation: str
@@ -43,7 +42,6 @@ class BenchmarkResult:
         sorted_lat = sorted(self.latencies_ms)
         idx = int(len(sorted_lat) * 0.99)
         return sorted_lat[min(idx, len(sorted_lat) - 1)]
-
 
 class MyDBClient:
     """Simple client for MyDB protocol."""
@@ -107,10 +105,8 @@ class MyDBClient:
         response = self._recv_response()
         return response and response[0] == 0x00
 
-
 def random_string(length: int) -> str:
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-
 
 def benchmark_puts(client: MyDBClient, num_ops: int, key_size: int, value_size: int) -> BenchmarkResult:
     latencies = []
@@ -136,7 +132,6 @@ def benchmark_puts(client: MyDBClient, num_ops: int, key_size: int, value_size: 
         latencies_ms=latencies
     )
 
-
 def benchmark_gets(client: MyDBClient, num_ops: int) -> BenchmarkResult:
     latencies = []
     
@@ -159,7 +154,6 @@ def benchmark_gets(client: MyDBClient, num_ops: int) -> BenchmarkResult:
         ops_per_sec=num_ops / duration,
         latencies_ms=latencies
     )
-
 
 def benchmark_mixed(client: MyDBClient, num_ops: int, read_ratio: float = 0.8) -> BenchmarkResult:
     latencies = []
@@ -187,7 +181,6 @@ def benchmark_mixed(client: MyDBClient, num_ops: int, read_ratio: float = 0.8) -
         latencies_ms=latencies
     )
 
-
 def print_result(result: BenchmarkResult):
     print(f"\n=== {result.operation} Benchmark ===")
     print(f"Total operations: {result.total_ops:,}")
@@ -196,7 +189,6 @@ def print_result(result: BenchmarkResult):
     print(f"Latency (avg): {result.avg_latency_ms:.3f} ms")
     print(f"Latency (p50): {result.p50_latency_ms:.3f} ms")
     print(f"Latency (p99): {result.p99_latency_ms:.3f} ms")
-
 
 def main():
     parser = argparse.ArgumentParser(description="MyDB Benchmark Tool")
@@ -252,7 +244,6 @@ def main():
         client.close()
     
     return 0
-
 
 if __name__ == "__main__":
     exit(main())

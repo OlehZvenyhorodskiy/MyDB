@@ -72,7 +72,6 @@ TEST_F(PersistenceTest, PersistToSSTable) {
 
 TEST_F(PersistenceTest, PersistViaWAL) {
     // 1. Open DB, Write Data, DO NOT Flush, Close (Simulate Crash or default close)
-    // Note: Database destructor calls Flush() by default unless we crash.
     // To simulate crash (WAL recovery), we need to rely on the fact that Flush() cleans up WALs.
     // If we Close(), Flush() runs, WALs deleted.
     // We want to test WAL Recovery.

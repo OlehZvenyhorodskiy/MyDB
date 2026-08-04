@@ -203,7 +203,6 @@ private:
             return true;
         }
 
-
         if (cmd_lower == "get") {
             if (!db_) { std::cerr << "Database not open.\n"; return true; }
             std::string key;
